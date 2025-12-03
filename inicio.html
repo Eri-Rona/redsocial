@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaSocial - Inicio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">NovaSocial</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="bi bi-house-door-fill me-1"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="perfil.html"><i class="bi bi-person me-1"></i> Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="amigos.html"><i class="bi bi-people me-1"></i> Amigos</a>
+                    </li>
+                </ul>
+                
+                <form class="d-flex me-3">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Buscar en Red Social" aria-label="Buscar">
+                        <button class="btn btn-outline-light" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="d-flex align-items-center">
+                    <a href="editar-perfil.html" class="btn btn-outline-light me-2">
+                        <i class="bi bi-person me-1"></i> Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5 pt-3">
+        <div class="row">
+            <!-- Columna izquierda - Perfil y menú -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://via.placeholder.com/100" class="rounded-circle mb-3" alt="Foto de perfil" width="100" height="100">
+                        <h5 class="card-title mb-1">Nombre Usuario</h5>
+                        <p class="text-muted small">@usuario</p>
+                        <div class="d-grid gap-2">
+                            <a href="perfil.html" class="btn btn-outline-primary btn-sm">Ver perfil</a>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex justify-content-between small">
+                            <div class="text-center">
+                                <div class="fw-bold">156</div>
+                                <div class="text-muted">Amigos</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="fw-bold">24</div>
+                                <div class="text-muted">Publicaciones</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0">Enlaces rápidos</h6>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <i class="bi bi-bookmark me-2"></i> Guardados
+                        </a>
+                        <a href="eventos.html" class="list-group-item list-group-item-action">
+                            <i class="bi bi-calendar-event me-2"></i> Eventos
+                        </a>
+                        <a href="fotos.html" class="list-group-item list-group-item-action">
+                            <i class="bi bi-images me-2"></i> Fotos
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Columna central - Publicaciones -->
+            <div class="col-lg-6">
+                <!-- Crear publicación -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="publicacionForm">
+                            <div class="d-flex mb-3">
+                                <img src="https://via.placeholder.com/40" class="rounded-circle me-2" width="40" height="40" alt="Usuario">
+                                <input type="text" class="form-control" placeholder="¿Qué estás pensando?" id="publicacionTexto">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                                <div class="d-flex">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="document.getElementById('imagenInput').click()">
+                                        <i class="bi bi-image text-success"></i> Foto/Video
+                                    </button>
+                                    <input type="file" id="imagenInput" class="d-none" accept="image/*">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Publicar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Lista de publicaciones -->
+                <div id="publicaciones">
+                    <!-- Las publicaciones se cargarán aquí dinámicamente con JavaScript -->
+                </div>
+                
+                <!-- Cargar más publicaciones -->
+                <div class="text-center my-4">
+                    <button class="btn btn-outline-primary" id="cargarMas">
+                        <i class="bi bi-arrow-down-circle me-1"></i> Cargar más publicaciones
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Columna derecha - Eventos y sugerencias -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0">Eventos próximos</h6>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Fiesta de cumpleaños</h6>
+                                <small class="text-muted">Mañana</small>
+                            </div>
+                            <p class="mb-1 small">Celebración del cumpleaños de María</p>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0">Sugerencias para ti</h6>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://via.placeholder.com/40/666666/ffffff" class="rounded-circle me-2" width="40" height="40" alt="Usuario sugerido">
+                                    <div>
+                                        <h6 class="mb-0">Laura Sánchez</h6>
+                                        <small class="text-muted">15 amigos en común</small>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver imagen -->
+    <div class="modal fade" id="imagenModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Imagen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img id="imagenAmpliada" src="" class="img-fluid" alt="Imagen ampliada" style="max-height: 80vh;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script personalizado -->
+    <script>
+        // Eliminar cualquier verificación de sesión
+        document.addEventListener('DOMContentLoaded', function() {
+            // Código para cargar publicaciones sin verificación de sesión
+            cargarPublicaciones();
+        });
+
+        function cargarPublicaciones() {
+            // Código para cargar publicaciones
+            const publicaciones = [
+                {
+                    id: 1,
+                    usuario: 'Usuario Ejemplo',
+                    avatar: 'https://via.placeholder.com/40',
+                    texto: '¡Bienvenido a nuestra red social! Empieza a seguir a personas para ver sus publicaciones aquí.',
+                    fecha: 'Hace unos momentos',
+                    meGusta: 0,
+                    comentarios: []
+                }
+            ];
+
+            const contenedor = document.getElementById('publicaciones');
+            if (contenedor) {
+                contenedor.innerHTML = '';
+                publicaciones.forEach(publicacion => {
+                    contenedor.innerHTML += `
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex mb-2">
+                                    <img src="${publicacion.avatar}" class="rounded-circle me-2" width="40" height="40" alt="${publicacion.usuario}">
+                                    <div>
+                                        <h6 class="mb-0">${publicacion.usuario}</h6>
+                                        <small class="text-muted">${publicacion.fecha}</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">${publicacion.texto}</p>
+                                <div class="d-flex justify-content-between border-top pt-2">
+                                    <button class="btn btn-sm btn-outline-secondary me-2">
+                                        <i class="bi bi-heart"></i> Me gusta (${publicacion.meGusta})
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-chat"></i> Comentar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+    </script>
+</body>
+</html>

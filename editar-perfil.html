@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar perfil - NovaSocial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="inicio.html">NovaSocial</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="inicio.html"><i class="bi bi-house-door-fill me-1"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="perfil.html"><i class="bi bi-person me-1"></i> Perfil</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="perfil.html" class="btn btn-outline-light">
+                        <i class="bi bi-arrow-left me-1"></i> Volver al perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container mt-5 pt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h3 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Editar perfil</h3>
+
+                <!-- Datos básicos -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-person-lines-fill me-2"></i>Datos básicos</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formDatosBasicos" action="acciones/guardar_perfil.php" method="post">
+                            <input type="hidden" name="tipo" value="basicos">
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="form-label" for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="apellido">Apellidos</label>
+                                    <input type="text" class="form-control" id="apellido" name="apellidos" placeholder="Tus apellidos">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="usuario">Nombre de usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="@usuario">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="biografia">Biografía</label>
+                                <textarea class="form-control" id="biografia" name="biografia" rows="3" placeholder="Escribe algo sobre ti..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="ciudad">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ej. Puebla, México">
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Guardar datos</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Foto de perfil y portada -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-image me-2"></i>Foto de perfil</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="acciones/guardar_foto_perfil.php" method="post" enctype="multipart/form-data">
+                            <div class="d-flex align-items-center mb-3">
+                                <img id="previewPerfil" src="https://via.placeholder.com/100" class="rounded-circle me-3" width="100" height="100" alt="Foto de perfil">
+                                <div>
+                                    <label for="fotoPerfil" class="form-label mb-1">Subir nueva foto</label>
+                                    <input class="form-control" type="file" id="fotoPerfil" name="foto" accept="image/*">
+                                    <div class="form-text">Formatos permitidos: JPG, PNG. Tamaño máximo sugerido 2MB.</div>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Guardar foto</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Información de contacto -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-envelope me-2"></i>Contacto</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formContacto" action="acciones/guardar_perfil.php" method="post">
+                            <input type="hidden" name="tipo" value="contacto">
+                            <div class="mb-3">
+                                <label class="form-label" for="correo">Correo electrónico</label>
+                                <input type="email" class="form-control" id="correo" name="correo" placeholder="tucorreo@ejemplo.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="telefono">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ej. +52 222 000 0000">
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Guardar contacto</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Redes sociales -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-globe me-2"></i>Redes sociales</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formRedes" action="acciones/guardar_perfil.php" method="post">
+                            <input type="hidden" name="tipo" value="redes">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-facebook text-primary"></i></span>
+                                <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Usuario de Facebook">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-instagram text-danger"></i></span>
+                                <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Usuario de Instagram">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-twitter-x"></i></span>
+                                <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Usuario de Twitter/X">
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Guardar redes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Preferencias básicas -->
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-sliders me-2"></i>Preferencias</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formPreferencias" action="acciones/guardar_perfil.php" method="post">
+                            <input type="hidden" name="tipo" value="preferencias">
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="perfilPublico" name="perfil_publico" checked>
+                                <label class="form-check-label" for="perfilPublico">Perfil público</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notificaciones" name="notificaciones" checked>
+                                <label class="form-check-label" for="notificaciones">Recibir notificaciones</label>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Guardar preferencias</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Vista previa rápida de la foto de perfil
+        const inputFoto = document.getElementById('fotoPerfil');
+        const preview = document.getElementById('previewPerfil');
+
+        if (inputFoto) {
+            inputFoto.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    preview.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Aquí solo manejamos la vista previa de la imagen.
+    </script>
+</body>
+</html>

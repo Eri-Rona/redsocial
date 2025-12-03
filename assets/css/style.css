@@ -1,0 +1,388 @@
+/* Estilos generales */
+body {
+    background: #f3f4f6;
+    padding-top: 64px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #111827;
+}
+
+/* Barra de navegación */
+.navbar {
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+    background: linear-gradient(90deg, rgba(249, 250, 251, 0.98), rgba(237, 233, 254, 0.98));
+    border-bottom: 1px solid rgba(167, 139, 250, 0.4);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    font-size: 1.5rem;
+    color: #4c1d95 !important;
+}
+
+.navbar .nav-link {
+    color: #6b7280 !important;
+    font-weight: 500;
+    transition: color 0.16s ease-out, background-color 0.16s ease-out;
+    border-radius: 999px;
+    padding-inline: 0.9rem;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+    color: #4c1d95 !important;
+    background-color: rgba(129, 140, 248, 0.08);
+}
+
+/* Buscador en navbar */
+.navbar .input-group .form-control {
+    border-radius: 999px 0 0 999px;
+    border-color: rgba(209, 213, 219, 0.9);
+    background-color: #ffffff;
+    height: 36px;
+    font-size: 0.9rem;
+}
+
+.navbar .input-group .form-control::placeholder {
+    color: #9ca3af;
+}
+
+.navbar .input-group .btn {
+    border-radius: 0 999px 999px 0;
+    border-color: rgba(209, 213, 219, 0.9);
+    background-color: #f9fafb;
+    height: 36px;
+    padding-inline: 0.9rem;
+}
+
+.navbar .input-group .btn:hover {
+    background-color: #ede9fe;
+}
+
+/* Botón Perfil en navbar */
+.navbar .btn-outline-light {
+    border-color: rgba(209, 213, 219, 0.9);
+    color: #4b5563;
+    background-color: #ffffff;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 0.9rem;
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: #ede9fe;
+    color: #4c1d95;
+}
+
+/* Tarjetas */
+.card {
+    border: 1px solid rgba(196, 181, 253, 0.7);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    margin-bottom: 22px;
+    background: #ffffff;
+    transition: transform 0.14s ease-out, box-shadow 0.14s ease-out, border-color 0.14s ease-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+    border-color: rgba(139, 92, 246, 0.7);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #ffffff, #f5f3ff);
+    border-bottom: 1px solid rgba(196, 181, 253, 0.8);
+    font-weight: 600;
+}
+
+/* Publicaciones */
+.publicacion {
+    border-bottom: 1px solid #e4e6eb;
+    padding: 12px 0;
+}
+
+.publicacion:last-child {
+    border-bottom: none;
+}
+
+.publicacion img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Comentarios */
+.comentarios {
+    background-color: #f0f2f5;
+    border-radius: 18px;
+    padding: 8px 12px;
+    margin-top: 8px;
+}
+
+/* Botones de interacción */
+.interacciones button {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-weight: 500;
+    padding: 8px 10px;
+    border-radius: 999px;
+    transition: background-color 0.15s ease-out, color 0.15s ease-out, transform 0.12s ease-out;
+}
+
+.interacciones button:hover {
+    background-color: #ede9fe;
+    color: #7c3aed;
+    transform: translateY(-1px);
+}
+
+/* Estilos para el perfil */
+.profile-cover {
+    height: 300px;
+    background-color: #e9ecef;
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border: 4px solid white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -75px;
+    left: 20px;
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 999px;
+    border-color: rgba(148, 163, 184, 0.6);
+    background-color: rgba(15, 23, 42, 0.02);
+}
+
+.form-control:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.35);
+    background-color: #ffffff;
+}
+
+/* Botones principales morados (suaves) */
+.btn-primary {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(88, 28, 135, 0.28);
+    transition: transform 0.14s ease-out, box-shadow 0.14s ease-out, filter 0.14s ease-out;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 36px rgba(76, 29, 149, 0.35);
+    filter: brightness(1.03);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(76, 29, 149, 0.4);
+}
+
+.btn-outline-primary {
+    border-radius: 999px;
+    border-color: rgba(129, 140, 248, 0.9);
+    color: #4c1d95;
+}
+
+.btn-outline-primary:hover {
+    background-color: rgba(129, 140, 248, 0.12);
+    color: #4c1d95;
+}
+
+.btn-outline-light {
+    border-radius: 999px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-cover {
+        height: 200px;
+    }
+    
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        bottom: -50px;
+    }
+}
+
+/* Estilos para el editor de perfil */
+.profile-edit-cover {
+    height: 250px;
+    background-color: #e9ecef;
+    position: relative;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.profile-edit-picture {
+    width: 150px;
+    height: 150px;
+    border: 4px solid white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -75px;
+    left: 20px;
+    z-index: 2;
+}
+
+/* Estilos para los botones de acción */
+.btn-action {
+    position: absolute;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-edit-cover {
+    bottom: 20px;
+    right: 20px;
+}
+
+.btn-edit-picture {
+    bottom: 20px;
+    left: 150px;
+}
+
+/* Estilos para el formulario de edición */
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+/* Estilos para las pestañas */
+.nav-tabs .nav-link {
+    color: #65676b;
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+}
+
+.nav-tabs .nav-link.active {
+    color: #1877f2;
+    border-bottom: 3px solid #1877f2;
+    background: none;
+}
+
+/* Estilos para los badges de intereses */
+.badge-interest {
+    background-color: #e7f3ff;
+    color: #1877f2;
+    font-weight: normal;
+    padding: 8px 12px;
+    margin: 0 8px 8px 0;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Estilos para la página de inicio de sesión */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1877f2;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* Estilos para el formulario de registro */
+.register-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 2rem;
+}
+
+/* Estilos para la verificación de correo */
+.verification-container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.verification-icon {
+    font-size: 4rem;
+    color: #198754;
+    margin-bottom: 1.5rem;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Estilos para la carga */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(24, 119, 242, 0.3);
+    border-radius: 50%;
+    border-top-color: #1877f2;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Estilos para móviles */
+@media (max-width: 576px) {
+    .login-container, 
+    .register-container,
+    .verification-container {
+        margin: 20px auto;
+        padding: 1rem;
+    }
+    
+    .profile-edit-picture {
+        width: 120px;
+        height: 120px;
+        bottom: -60px;
+    }
+    
+    .btn-edit-picture {
+        left: 120px;
+    }
+}
