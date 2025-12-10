@@ -285,6 +285,26 @@
                         if (data.warning) {
                             console.warn('Advertencia:', data.warning);
                         }
+
+                        // Una vez que tenemos los datos del usuario, cargamos sus publicaciones
+                        // data.user.id debería venir del backend si es el perfil propio o ajeno
+                        // Si api_perfil_completo no devuelve ID, usaremos el userId de URL o fallaremos elegantemente
+                        const idParaPublicaciones = userId || (data.user.id || null);
+                        if (idParaPublicaciones) {
+                            fetch(`api_publicaciones.php?usuario_id=${idParaPublicaciones}`)
+                                .then(res => res.json())
+                                .then(pubData => {
+                                    if (pubData.status === 'success') {
+                                        renderizarPublicaciones(pubData.publicaciones);
+                                    } else {
+                                        document.getElementById('listaPublicaciones').innerHTML = '<p class="text-danger">Error cargando publicaciones.</p>';
+                                    }
+                                })
+                                .catch(err => console.error('Error pubs:', err));
+                        } else {
+                            // Fallback: tratar de cargar publicaciones del usuario actual si no hay ID
+                            // (Aunque api_publicaciones sin params carga el feed, no el perfil. Mejor no cargar nada si hay duda)
+                        }
                     }
                 })
                 .catch((error) => {
@@ -303,7 +323,103 @@
                     }
                 })
                 .catch(err => console.error('Error loading user stats:', err));
+
+            // ------------- CARGAR PUBLICACIONES DEL PERFIL -------------
+            cargarPublicacionesPerfil(userId);
         });
+
+        // Función para cargar publicaciones del usuario del perfil
+        function cargarPublicacionesPerfil(profileId) {
+            const container = document.getElementById('listaPublicaciones');
+            container.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
+
+            // Si no hay ID en la URL, se asume que es el perfil propio (necesitamos saber el ID propio o dejar que la API lo infiera si usáramos lógica de "mi perfil", pero la API requiere ID explícito o usa el feed. 
+            // Para el perfil propio sin ID en URL, necesitamos primero saber quién es el usuario actual.
+            // O mejor aún, api_perfil_completo devuelve el user ID del perfil que estamos viendo.
+
+            // Vamos a encadenar esto después de obtener los datos del perfil si no tenemos ID, 
+            // o haremos una llamada extra segura.
+
+            // Estrategia: Si tenemos userId de URL, lo usamos. Si no, esperamos a que api_perfil_completo nos de el ID.
+            // Arriba ya llamamos a api_perfil_completo. Vamos a mover esta llamada ADENTRO del then de api_perfil_completo para asegurar que tenemos el ID.
+        }
+
+        function renderizarPublicaciones(publicaciones) {
+            const container = document.getElementById('listaPublicaciones');
+            if (publicaciones.length === 0) {
+                container.innerHTML = '<div class="alert alert-light text-center">Este usuario aún no ha publicado nada.</div>';
+                return;
+            }
+
+            let html = '';
+            publicaciones.forEach(pub => {
+                const likeClass = pub.liked_by_user ? 'text-danger' : 'text-muted';
+                const likeIcon = pub.liked_by_user ? 'bi-heart-fill' : 'bi-heart';
+
+                // Procesar imagen si existe
+                let imagenHtml = '';
+                if (pub.imagen && pub.imagen !== 'null' && pub.imagen !== '') {
+                    imagenHtml = `<img src="${pub.imagen}" class="img-fluid rounded mb-3 w-100" alt="Imagen de la publicación" onerror="this.style.display='none'">`;
+                }
+
+                html += `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="${pub.foto_usuario || 'assets/blanco y negro.webp'}" class="rounded-circle me-2" alt="Foto" width="40" height="40">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">${pub.nombre}</h6>
+                                    <small class="text-muted">${pub.fecha}</small>
+                                </div>
+                            </div>
+                            <p class="card-text">${pub.contenido}</p>
+                            ${imagenHtml}
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-link text-decoration-none p-0 me-3 ${likeClass}" onclick="toggleLike(${pub.id}, this)">
+                                    <i class="bi ${likeIcon} me-1"></i> <span class="likes-count">${pub.likes_count}</span>
+                                </button>
+                                <button class="btn btn-link text-decoration-none p-0 text-muted">
+                                    <i class="bi bi-chat me-1"></i> Comentar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Función para dar like (copiada de inicio.html para funcionalidad completa)
+        function toggleLike(publicacionId, btn) {
+            const icon = btn.querySelector('i');
+            const counter = btn.querySelector('.likes-count');
+
+            fetch('acciones/toggle_like.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `publicacion_id=${publicacionId}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        if (data.liked) {
+                            btn.classList.remove('text-muted');
+                            btn.classList.add('text-danger');
+                            icon.classList.remove('bi-heart');
+                            icon.classList.add('bi-heart-fill');
+                        } else {
+                            btn.classList.remove('text-danger');
+                            btn.classList.add('text-muted');
+                            icon.classList.remove('bi-heart-fill');
+                            icon.classList.add('bi-heart');
+                        }
+                        counter.textContent = data.likes_count;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
     </script>
 </body>
 

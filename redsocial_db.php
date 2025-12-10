@@ -1,11 +1,10 @@
 <?php
 class Database {
-    private $host = "fdb1034.awardspace.net";
+    private $host = "localhost";
     private $db_name = "4698085_erimich";
     private $username = "4698085_erimich";
     private $password = "3hermanaserika"; // <-- ¡PON AQUÍ TU CONTRASEÑA DE AWARDSPACE!
     public $conn;
-
     public function getConnection() {
         $this->conn = null;
 
