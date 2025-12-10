@@ -1,7 +1,9 @@
 <?php
+session_start();
 header('Content-Type: application/json');
 require_once 'redsocial_db.php';
 
+// Respuesta base
 $response = array('status' => 'error', 'message' => '');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $database = new Database();
         $db = $database->getConnection();
 
-        // Check if email already exists
+        // Comprobar si el correo ya existe
         $query = "SELECT id FROM usuarios WHERE email = :email";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':email', $email);
@@ -56,30 +58,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Hash the password
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $fecha_creacion = date('Y-m-d H:i:s');
-        $fecha_actualizacion = $fecha_creacion;
+        // Generar username sencillo a partir del nombre y apellido (fallback al email si hace falta)
+        $baseUsername = trim(strtolower(preg_replace('/\s+/', '', $nombre . '.' . $apellido)));
+        if ($baseUsername === '' && !empty($email)) {
+            $baseUsername = strstr($email, '@', true);
+        }
+        if ($baseUsername === '' ) {
+            $baseUsername = 'user' . time();
+        }
 
-        // Insert new user
-        $query = "INSERT INTO usuarios (nombre, apellido, email, telefono, fecha_nacimiento, password, fecha_creacion, fecha_actualizacion) 
-                 VALUES (:nombre, :apellido, :email, :telefono, :fecha_nacimiento, :password, :fecha_creacion, :fecha_actualizacion)";
+        // Hash de la contraseña usando la columna password_hash
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insertar nuevo usuario según el esquema real (username, email, password_hash)
+        $query = "INSERT INTO usuarios (username, email, password_hash) 
+                 VALUES (:username, :email, :password_hash)";
         
         $stmt = $db->prepare($query);
-        
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':username', $baseUsername);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
-        $stmt->bindParam(':password', $hashed_password);
-        $stmt->bindParam(':fecha_creacion', $fecha_creacion);
-        $stmt->bindParam(':fecha_actualizacion', $fecha_actualizacion);
+        $stmt->bindParam(':password_hash', $hashed_password);
 
         if ($stmt->execute()) {
+            // Obtener el ID del usuario recién creado
+            $userId = $db->lastInsertId();
+
+            // Crear sesión de usuario automáticamente después del registro
+            session_regenerate_id(true);
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['user_name'] = $baseUsername;
+            $_SESSION['user_email'] = $email;
+
             $response['status'] = 'success';
-            $response['message'] = '¡Registro exitoso! Ahora puedes iniciar sesión';
-            $response['redirect'] = 'redsocial_login.html';
+            $response['message'] = '¡Registro exitoso! Redirigiendo a tu inicio...';
+            $response['redirect'] = 'inicio.html';
         } else {
             $response['message'] = 'Error al registrar el usuario';
         }

@@ -1,81 +1,85 @@
 <?php
+session_start();
 
-use Bd\Conexion;
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../redsocial_login.html');
+    exit;
+}
 
-require_once __DIR__ . '/../bd/Conexion.php';
-
-$conexion = new Conexion();
-$pdo = $conexion->getConnection();
-
-// TODO: reemplazar por el ID del usuario en sesión cuando tengas login
-$usuarioId = 1;
-
-$tipo = $_POST['tipo'] ?? '';
+require_once __DIR__ . '/../redsocial_db.php';
 
 try {
+    $database = new Database();
+    $pdo = $database->getConnection();
+    
+    $usuarioId = $_SESSION['user_id'];
+    $tipo = $_POST['tipo'] ?? '';
+    
     if ($tipo === 'basicos') {
-        $nombre    = trim($_POST['nombre'] ?? '');
+        // Actualizar datos básicos
+        $nombre = trim($_POST['nombre'] ?? '');
         $apellidos = trim($_POST['apellidos'] ?? '');
-        $usuario   = trim($_POST['usuario'] ?? '');
-        $bio       = trim($_POST['biografia'] ?? '');
-        $ciudad    = trim($_POST['ciudad'] ?? '');
-
-        // Actualizar tabla usuarios (nombre de usuario)
+        $usuario = trim($_POST['usuario'] ?? '');
+        $biografia = trim($_POST['biografia'] ?? '');
+        $ciudad = trim($_POST['ciudad'] ?? '');
+        $fechaNacimiento = !empty($_POST['fecha_nacimiento']) ? $_POST['fecha_nacimiento'] : null;
+        
+        // Actualizar username y datos adicionales en la tabla usuarios
         if ($usuario !== '') {
-            $stmtUser = $pdo->prepare('UPDATE redsocial_usuarios SET username = :u WHERE id = :id');
-            $stmtUser->execute([':u' => $usuario, ':id' => $usuarioId]);
+            $sql = 'UPDATE usuarios SET username = :u, bio = :b, ciudad = :c, fecha_nacimiento = :f WHERE id = :id';
+            $stmtUser = $pdo->prepare($sql);
+            $stmtUser->execute([
+                ':u' => $usuario, 
+                ':b' => $biografia,
+                ':c' => $ciudad,
+                ':f' => $fechaNacimiento,
+                ':id' => $usuarioId
+            ]);
+            $_SESSION['user_name'] = $usuario;
         }
 
-        // Actualizar/insertar perfil
-        $stmt = $pdo->prepare('UPDATE redsocial_perfiles SET nombre = :n, apellidos = :a, biografia = :b, ciudad = :c WHERE usuario_id = :id');
-        $stmt->execute([
-            ':n'  => $nombre,
-            ':a'  => $apellidos,
-            ':b'  => $bio,
-            ':c'  => $ciudad,
-            ':id' => $usuarioId,
-        ]);
-
     } elseif ($tipo === 'contacto') {
-        $correo   = trim($_POST['correo'] ?? '');
+        // Actualizar información de contacto
+        $correo = trim($_POST['correo'] ?? '');
         $telefono = trim($_POST['telefono'] ?? '');
 
         if ($correo !== '') {
-            $stmtUser = $pdo->prepare('UPDATE redsocial_usuarios SET email = :e WHERE id = :id');
-            $stmtUser->execute([':e' => $correo, ':id' => $usuarioId]);
+            $stmtUser = $pdo->prepare('UPDATE usuarios SET email = :e, telefono = :t WHERE id = :id');
+            $stmtUser->execute([
+                ':e' => $correo,
+                ':t' => $telefono,
+                ':id' => $usuarioId
+            ]);
+            $_SESSION['user_email'] = $correo;
         }
 
-        $stmt = $pdo->prepare('UPDATE redsocial_perfiles SET telefono = :t WHERE usuario_id = :id');
-        $stmt->execute([':t' => $telefono, ':id' => $usuarioId]);
-
     } elseif ($tipo === 'redes') {
-        $facebook  = trim($_POST['facebook'] ?? '');
+        // Actualizar redes sociales
+        $facebook = trim($_POST['facebook'] ?? '');
         $instagram = trim($_POST['instagram'] ?? '');
-        $twitter   = trim($_POST['twitter'] ?? '');
+        $twitter = trim($_POST['twitter'] ?? '');
 
-        $stmt = $pdo->prepare('UPDATE redsocial_perfiles SET facebook = :f, instagram = :i, twitter = :t WHERE usuario_id = :id');
+        $stmt = $pdo->prepare('UPDATE usuarios SET facebook = :f, instagram = :i, twitter = :t WHERE id = :id');
         $stmt->execute([
-            ':f'  => $facebook,
-            ':i'  => $instagram,
-            ':t'  => $twitter,
-            ':id' => $usuarioId,
+            ':f' => $facebook,
+            ':i' => $instagram,
+            ':t' => $twitter,
+            ':id' => $usuarioId
         ]);
 
     } elseif ($tipo === 'preferencias') {
-        $perfilPublico  = isset($_POST['perfil_publico']) ? 1 : 0;
-        $notificaciones = isset($_POST['notificaciones']) ? 1 : 0;
-
-        $stmt = $pdo->prepare('UPDATE redsocial_perfiles SET perfil_publico = :p, notificaciones = :n WHERE usuario_id = :id');
-        $stmt->execute([
-            ':p'  => $perfilPublico,
-            ':n'  => $notificaciones,
-            ':id' => $usuarioId,
-        ]);
+        // Actualizar preferencias
+        // Esto necesitaría tablas adicionales para guardar preferencias
     }
 
-    header('Location: ../editar-perfil.html');
+    // Redirigir con mensaje de éxito
+    header('Location: ../editar-perfil.html?success=perfil');
     exit;
+    
 } catch (Throwable $e) {
+    $_SESSION['error_perfil'] = 'Error al actualizar el perfil: ' . $e->getMessage();
     header('Location: ../editar-perfil.html');
     exit;
 }
+?>

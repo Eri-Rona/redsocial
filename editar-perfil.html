@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -26,9 +28,12 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="perfil.html" class="btn btn-outline-light">
+                    <a href="perfil.html" class="btn btn-outline-light me-2">
                         <i class="bi bi-arrow-left me-1"></i> Volver al perfil
                     </a>
+                    <button class="btn btn-outline-light" onclick="cerrarSesion()">
+                        <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                    </button>
                 </div>
             </div>
         </div>
@@ -39,6 +44,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <h3 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Editar perfil</h3>
+
+                <!-- Mensajes de éxito/error -->
+                <div id="messageContainer"></div>
 
                 <!-- Datos básicos -->
                 <div class="card mb-4">
@@ -51,24 +59,33 @@
                             <div class="row mb-3">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="form-label" for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre">
+                                    <input type="text" class="form-control" id="nombre" name="nombre"
+                                        placeholder="Tu nombre">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="apellido">Apellidos</label>
-                                    <input type="text" class="form-control" id="apellido" name="apellidos" placeholder="Tus apellidos">
+                                    <input type="text" class="form-control" id="apellido" name="apellidos"
+                                        placeholder="Tus apellidos">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="usuario">Nombre de usuario</label>
-                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="@usuario">
+                                <input type="text" class="form-control" id="usuario" name="usuario"
+                                    placeholder="@usuario">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="biografia">Biografía</label>
-                                <textarea class="form-control" id="biografia" name="biografia" rows="3" placeholder="Escribe algo sobre ti..."></textarea>
+                                <textarea class="form-control" id="biografia" name="biografia" rows="3"
+                                    placeholder="Escribe algo sobre ti..."></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="ciudad">Ciudad</label>
-                                <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ej. Puebla, México">
+                                <input type="text" class="form-control" id="ciudad" name="ciudad"
+                                    placeholder="Ej. Puebla, México">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
                             </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary">Guardar datos</button>
@@ -85,11 +102,14 @@
                     <div class="card-body">
                         <form action="acciones/guardar_foto_perfil.php" method="post" enctype="multipart/form-data">
                             <div class="d-flex align-items-center mb-3">
-                                <img id="previewPerfil" src="https://via.placeholder.com/100" class="rounded-circle me-3" width="100" height="100" alt="Foto de perfil">
+                                <img id="previewPerfil" src="https://via.placeholder.com/100"
+                                    class="rounded-circle me-3" width="100" height="100" alt="Foto de perfil">
                                 <div>
                                     <label for="fotoPerfil" class="form-label mb-1">Subir nueva foto</label>
-                                    <input class="form-control" type="file" id="fotoPerfil" name="foto" accept="image/*">
-                                    <div class="form-text">Formatos permitidos: JPG, PNG. Tamaño máximo sugerido 2MB.</div>
+                                    <input class="form-control" type="file" id="fotoPerfil" name="foto"
+                                        accept="image/*">
+                                    <div class="form-text">Formatos permitidos: JPG, PNG. Tamaño máximo sugerido 2MB.
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-end">
@@ -109,11 +129,13 @@
                             <input type="hidden" name="tipo" value="contacto">
                             <div class="mb-3">
                                 <label class="form-label" for="correo">Correo electrónico</label>
-                                <input type="email" class="form-control" id="correo" name="correo" placeholder="tucorreo@ejemplo.com">
+                                <input type="email" class="form-control" id="correo" name="correo"
+                                    placeholder="tucorreo@ejemplo.com">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="telefono">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ej. +52 222 000 0000">
+                                <input type="tel" class="form-control" id="telefono" name="telefono"
+                                    placeholder="Ej. +52 222 000 0000">
                             </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary">Guardar contacto</button>
@@ -132,15 +154,18 @@
                             <input type="hidden" name="tipo" value="redes">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="bi bi-facebook text-primary"></i></span>
-                                <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Usuario de Facebook">
+                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                    placeholder="Usuario de Facebook">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="bi bi-instagram text-danger"></i></span>
-                                <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Usuario de Instagram">
+                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                    placeholder="Usuario de Instagram">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="bi bi-twitter-x"></i></span>
-                                <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Usuario de Twitter/X">
+                                <input type="text" class="form-control" id="twitter" name="twitter"
+                                    placeholder="Usuario de Twitter/X">
                             </div>
                             <div class="text-end">
                                 <button type="submit" class="btn btn-primary">Guardar redes</button>
@@ -158,11 +183,13 @@
                         <form id="formPreferencias" action="acciones/guardar_perfil.php" method="post">
                             <input type="hidden" name="tipo" value="preferencias">
                             <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="perfilPublico" name="perfil_publico" checked>
+                                <input class="form-check-input" type="checkbox" id="perfilPublico" name="perfil_publico"
+                                    checked>
                                 <label class="form-check-label" for="perfilPublico">Perfil público</label>
                             </div>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="notificaciones" name="notificaciones" checked>
+                                <input class="form-check-input" type="checkbox" id="notificaciones"
+                                    name="notificaciones" checked>
                                 <label class="form-check-label" for="notificaciones">Recibir notificaciones</label>
                             </div>
                             <div class="text-end">
@@ -176,8 +203,187 @@
         </div>
     </div>
 
+    <!-- Modal de éxito para actualización de perfil -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 bg-success bg-gradient">
+                    <h5 class="modal-title text-white" id="successModalLabel">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Perfil Actualizado
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5 class="text-success mb-3">¡Perfil actualizado correctamente!</h5>
+                    <p class="text-muted mb-0">Tus cambios han sido guardados exitosamente.</p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-check me-1"></i> Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para cerrar sesión -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="logoutModalLabel">
+                        <i class="bi bi-box-arrow-right text-danger me-2"></i>
+                        Cerrar Sesión
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-question-circle text-primary" style="font-size: 3rem;"></i>
+                    <p class="mt-3 mb-0">¿Estás seguro que deseas cerrar sesión?</p>
+                    <small class="text-muted">Tendrás que iniciar sesión nuevamente para acceder a tu cuenta</small>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-danger px-4" onclick="confirmarLogout()">
+                        <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            modal.show();
+        }
+
+        // Función para confirmar el logout
+        function confirmarLogout() {
+            window.location.href = 'redsocial_logout.php';
+        }
+
+        // Función para mostrar mensajes
+        function showMessage(message, type = 'info') {
+            if (type === 'success') {
+                // Mostrar modal de éxito para mensajes de éxito
+                const modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            } else {
+                // Mostrar alert regular para errores e información
+                const container = document.getElementById('messageContainer');
+                const alertClass = type === 'error' ? 'danger' : 'info';
+                container.innerHTML = `
+                    <div class="alert alert-${alertClass} alert-dismissible fade show" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+                // Auto-ocultar después de 5 segundos
+                setTimeout(() => {
+                    const alert = container.querySelector('.alert');
+                    if (alert) {
+                        const bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    }
+                }, 5000);
+            }
+        }
+
+        // Función para cargar datos del usuario y foto de perfil
+        function cargarDatosUsuario() {
+            fetch('api_perfil_completo.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success' && data.user) {
+                        // Cargar foto de perfil si existe
+                        if (data.user.foto_perfil) {
+                            const preview = document.getElementById('previewPerfil');
+                            if (preview) {
+                                preview.src = data.user.foto_perfil;
+                            }
+                        }
+
+                        // Cargar datos en los formularios
+                        // Datos básicos
+                        const nombreInput = document.getElementById('nombre');
+                        if (nombreInput) {
+                            nombreInput.value = data.user.nombre || '';
+                        }
+
+                        const apellidoInput = document.getElementById('apellido');
+                        if (apellidoInput) {
+                            apellidoInput.value = data.user.apellido || '';
+                        }
+
+                        const usuarioInput = document.getElementById('usuario');
+                        if (usuarioInput) {
+                            usuarioInput.value = data.user.username || '';
+                        }
+
+                        const biografiaInput = document.getElementById('biografia');
+                        if (biografiaInput) {
+                            biografiaInput.value = data.user.biografia || '';
+                        }
+
+                        const ciudadInput = document.getElementById('ciudad');
+                        if (ciudadInput) {
+                            ciudadInput.value = data.user.ciudad || '';
+                        }
+
+                        const fechaNacimientoInput = document.getElementById('fecha_nacimiento');
+                        if (fechaNacimientoInput) {
+                            fechaNacimientoInput.value = data.user.fecha_nacimiento || '';
+                        }
+
+                        // Contacto
+                        const correoInput = document.getElementById('correo');
+                        if (correoInput) {
+                            correoInput.value = data.user.email || '';
+                        }
+
+                        const telefonoInput = document.getElementById('telefono');
+                        if (telefonoInput) {
+                            telefonoInput.value = data.user.telefono || '';
+                        }
+
+                        // Redes sociales
+                        const facebookInput = document.getElementById('facebook');
+                        if (facebookInput) {
+                            facebookInput.value = data.user.facebook || '';
+                        }
+
+                        const instagramInput = document.getElementById('instagram');
+                        if (instagramInput) {
+                            instagramInput.value = data.user.instagram || '';
+                        }
+
+                        const twitterInput = document.getElementById('twitter');
+                        if (twitterInput) {
+                            twitterInput.value = data.user.twitter || '';
+                        }
+
+                        // Mostrar advertencia si existe
+                        if (data.warning) {
+                            console.warn('Advertencia:', data.warning);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al cargar datos del usuario:', error);
+                });
+        }
+
         // Vista previa rápida de la foto de perfil
         const inputFoto = document.getElementById('fotoPerfil');
         const preview = document.getElementById('previewPerfil');
@@ -194,7 +400,22 @@
             });
         }
 
+        // Evento al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            // Verificar si hay mensaje de éxito en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'perfil') {
+                showMessage('', 'success');
+                // Limpiar URL para no mostrar modal nuevamente al recargar
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Cargar datos del usuario
+            cargarDatosUsuario();
+        });
+
         // Aquí solo manejamos la vista previa de la imagen.
     </script>
 </body>
+
 </html>

@@ -15,7 +15,7 @@ $password = $_POST['password'] ?? '';
 $password2 = $_POST['password2'] ?? '';
 
 if ($nombre === '' || $usuario === '' || $correo === '' || $password === '' || $password !== $password2) {
-    header('Location: ../registro.html');
+    header('Location: ../login.html');
     exit;
 }
 
@@ -46,6 +46,6 @@ try {
     exit;
 } catch (Throwable $e) {
     // En caso de error simple volvemos al registro
-    header('Location: ../registro.html');
+    header('Location: ../login.html');
     exit;
 }

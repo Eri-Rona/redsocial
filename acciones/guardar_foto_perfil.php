@@ -1,51 +1,83 @@
 <?php
+session_start();
 
-use Bd\Conexion;
-
-require_once __DIR__ . '/../bd/Conexion.php';
-
-$conexion = new Conexion();
-$pdo = $conexion->getConnection();
-
-// TODO: reemplazar por el ID del usuario en sesión cuando tengas login
-$usuarioId = 1;
-
-if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
-    header('Location: ../editar-perfil.html');
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../redsocial_login.html');
     exit;
 }
 
-$archivo = $_FILES['foto'];
-$nombreOriginal = $archivo['name'];
-$ext = pathinfo($nombreOriginal, PATHINFO_EXTENSION);
-$ext = strtolower($ext);
+// Usar la conexión de base de datos existente
+require_once __DIR__ . '/../redsocial_db.php';
 
-$permitidas = ['jpg', 'jpeg', 'png', 'gif'];
-if (!in_array($ext, $permitidas, true)) {
+try {
+    $database = new Database();
+    $pdo = $database->getConnection();
+    
+    $usuarioId = $_SESSION['user_id'];
+    
+    // Verificar si se subió un archivo
+    if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
+        $_SESSION['error_foto'] = 'Error al subir el archivo. Intenta nuevamente.';
+        header('Location: ../editar-perfil.html');
+        exit;
+    }
+    
+    $archivo = $_FILES['foto'];
+    $nombreOriginal = $archivo['name'];
+    $ext = pathinfo($nombreOriginal, PATHINFO_EXTENSION);
+    $ext = strtolower($ext);
+    
+    // Validar extensión
+    $permitidas = ['jpg', 'jpeg', 'png', 'gif'];
+    if (!in_array($ext, $permitidas, true)) {
+        $_SESSION['error_foto'] = 'Formato de archivo no permitido. Usa JPG, PNG o GIF.';
+        header('Location: ../editar-perfil.html');
+        exit;
+    }
+    
+    // Validar tamaño (máximo 5MB)
+    $maxSize = 5 * 1024 * 1024; // 5MB
+    if ($archivo['size'] > $maxSize) {
+        $_SESSION['error_foto'] = 'El archivo es demasiado grande. Máximo 5MB.';
+        header('Location: ../editar-perfil.html');
+        exit;
+    }
+    
+    // Convertir imagen a base64
+    $imageData = file_get_contents($archivo['tmp_name']);
+    $base64Image = base64_encode($imageData);
+    
+    // Determinar el tipo MIME según la extensión
+    $mimeTypes = [
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'png' => 'image/png',
+        'gif' => 'image/gif'
+    ];
+    $mimeType = $mimeTypes[$ext] ?? 'image/jpeg';
+    
+    // Crear el data URI completo
+    $dataUri = "data:" . $mimeType . ";base64," . $base64Image;
+    
+    // Guardar en la base de datos
+    $stmt = $pdo->prepare('UPDATE usuarios SET fotoperfil = :foto WHERE id = :id');
+    $stmt->execute([
+        ':foto' => $dataUri,
+        ':id' => $usuarioId,
+    ]);
+    
+    $_SESSION['success_foto'] = 'Foto de perfil actualizada correctamente.';
+    header('Location: ../editar-perfil.html');
+    exit;
+    
+} catch(PDOException $e) {
+    $_SESSION['error_foto'] = 'Error en la base de datos: ' . $e->getMessage();
+    header('Location: ../editar-perfil.html');
+    exit;
+} catch(Exception $e) {
+    $_SESSION['error_foto'] = 'Error: ' . $e->getMessage();
     header('Location: ../editar-perfil.html');
     exit;
 }
-
-$nombreNuevo = 'perfil_' . $usuarioId . '_' . time() . '.' . $ext;
-$rutaCarpeta = __DIR__ . '/../assets/images/perfiles';
-if (!is_dir($rutaCarpeta)) {
-    mkdir($rutaCarpeta, 0777, true);
-}
-$rutaDestino = $rutaCarpeta . '/' . $nombreNuevo;
-
-if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
-    header('Location: ../editar-perfil.html');
-    exit;
-}
-
-// Guardar ruta relativa en la BD
-$rutaRelativa = 'assets/images/perfiles/' . $nombreNuevo;
-
-$stmt = $pdo->prepare('UPDATE redsocial_perfiles SET foto_perfil = :f WHERE usuario_id = :id');
-$stmt->execute([
-    ':f' => $rutaRelativa,
-    ':id' => $usuarioId,
-]);
-
-header('Location: ../editar-perfil.html');
-exit;
+?>

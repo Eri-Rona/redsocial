@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaSocial - Inicio</title>
+    <title>Eri Mich&lt;3 - Inicio</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -11,40 +12,36 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">NovaSocial</a>
+            <a class="navbar-brand" href="index.html">Eri Mich&lt;3</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html"><i class="bi bi-house-door-fill me-1"></i> Inicio</a>
+                        <a class="nav-link active" href="index.html"><i class="bi bi-house-door-fill me-1"></i>
+                            Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="perfil.html"><i class="bi bi-person me-1"></i> Perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="amigos.html"><i class="bi bi-people me-1"></i> Amigos</a>
+                        <a class="nav-link" href="amigos.html" id="navAmigos"><i class="bi bi-people me-1"></i>
+                            Amigos</a>
                     </li>
                 </ul>
-                
-                <form class="d-flex me-3">
-                    <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Buscar en Red Social" aria-label="Buscar">
-                        <button class="btn btn-outline-light" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </form>
-                
+
+
+
                 <div class="d-flex align-items-center">
-                    <a href="editar-perfil.html" class="btn btn-outline-light me-2">
-                        <i class="bi bi-person me-1"></i> Perfil
-                    </a>
+                    <button class="btn btn-outline-light me-2" onclick="cerrarSesion()">
+                        <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                    </button>
                 </div>
             </div>
         </div>
@@ -57,9 +54,10 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="https://via.placeholder.com/100" class="rounded-circle mb-3" alt="Foto de perfil" width="100" height="100">
-                        <h5 class="card-title mb-1">Nombre Usuario</h5>
-                        <p class="text-muted small">@usuario</p>
+                        <img id="usuarioFoto" src="assets/blanco y negro.webp" class="rounded-circle mb-3"
+                            alt="Foto de perfil" width="100" height="100">
+                        <h5 class="card-title mb-1" id="usuarioNombre">Nombre Usuario</h5>
+                        <p class="text-muted small" id="usuarioCorreo">@usuario</p>
                         <div class="d-grid gap-2">
                             <a href="perfil.html" class="btn btn-outline-primary btn-sm">Ver perfil</a>
                         </div>
@@ -67,35 +65,20 @@
                     <div class="card-footer bg-transparent">
                         <div class="d-flex justify-content-between small">
                             <div class="text-center">
-                                <div class="fw-bold">156</div>
+                                <div class="fw-bold" id="usuarioAmigos">0</div>
                                 <div class="text-muted">Amigos</div>
                             </div>
                             <div class="text-center">
-                                <div class="fw-bold">24</div>
+                                <div class="fw-bold" id="usuarioPublicaciones">0</div>
                                 <div class="text-muted">Publicaciones</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="mb-0">Enlaces rápidos</h6>
-                    </div>
-                    <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="bi bi-bookmark me-2"></i> Guardados
-                        </a>
-                        <a href="eventos.html" class="list-group-item list-group-item-action">
-                            <i class="bi bi-calendar-event me-2"></i> Eventos
-                        </a>
-                        <a href="fotos.html" class="list-group-item list-group-item-action">
-                            <i class="bi bi-images me-2"></i> Fotos
-                        </a>
-                    </div>
-                </div>
+
+
             </div>
-            
+
             <!-- Columna central - Publicaciones -->
             <div class="col-lg-6">
                 <!-- Crear publicación -->
@@ -103,27 +86,42 @@
                     <div class="card-body">
                         <form id="publicacionForm">
                             <div class="d-flex mb-3">
-                                <img src="https://via.placeholder.com/40" class="rounded-circle me-2" width="40" height="40" alt="Usuario">
-                                <input type="text" class="form-control" placeholder="¿Qué estás pensando?" id="publicacionTexto">
+                                <img id="publicacionFoto" src="https://via.placeholder.com/40"
+                                    class="rounded-circle me-2" width="40" height="40" alt="Usuario">
+                                <div class="w-100 ms-2">
+                                    <input type="text" class="form-control" placeholder="¿Qué estás pensando?"
+                                        id="publicacionTexto">
+                                </div>
                             </div>
+
+                            <!-- Contenedor de vista previa -->
+                            <div id="previewContainer" class="mb-3 position-relative d-none">
+                                <button type="button" class="btn-close position-absolute top-0 end-0 m-2 bg-white p-2"
+                                    aria-label="Close" onclick="limpiarPreview()"></button>
+                                <div id="previewContent" class="text-center bg-light rounded p-2">
+                                    <!-- Aquí se mostrará la imagen o video -->
+                                </div>
+                            </div>
+
                             <div class="d-flex justify-content-between align-items-center border-top pt-3">
                                 <div class="d-flex">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="document.getElementById('imagenInput').click()">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-2"
+                                        onclick="document.getElementById('imagenInput').click()">
                                         <i class="bi bi-image text-success"></i> Foto/Video
                                     </button>
-                                    <input type="file" id="imagenInput" class="d-none" accept="image/*">
+                                    <input type="file" id="imagenInput" class="d-none" accept="image/*,video/*">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Publicar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                
+
                 <!-- Lista de publicaciones -->
                 <div id="publicaciones">
                     <!-- Las publicaciones se cargarán aquí dinámicamente con JavaScript -->
                 </div>
-                
+
                 <!-- Cargar más publicaciones -->
                 <div class="text-center my-4">
                     <button class="btn btn-outline-primary" id="cargarMas">
@@ -131,40 +129,27 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Columna derecha - Eventos y sugerencias -->
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="card mb-4">
                     <div class="card-header bg-white">
-                        <h6 class="mb-0">Eventos próximos</h6>
+                        <h6 class="mb-0">Cumpleaños próximos</h6>
                     </div>
-                    <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">Fiesta de cumpleaños</h6>
-                                <small class="text-muted">Mañana</small>
-                            </div>
-                            <p class="mb-1 small">Celebración del cumpleaños de María</p>
-                        </a>
+                    <div class="list-group list-group-flush" id="cumpleanosContainer">
+                        <div class="list-group-item text-muted small">
+                            Cargando...
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-header bg-white">
                         <h6 class="mb-0">Sugerencias para ti</h6>
                     </div>
-                    <div class="list-group list-group-flush">
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div class="d-flex align-items-center">
-                                    <img src="https://via.placeholder.com/40/666666/ffffff" class="rounded-circle me-2" width="40" height="40" alt="Usuario sugerido">
-                                    <div>
-                                        <h6 class="mb-0">Laura Sánchez</h6>
-                                        <small class="text-muted">15 amigos en común</small>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-outline-primary">Agregar</button>
-                            </div>
+                    <div class="list-group list-group-flush" id="sugerenciasContainer">
+                        <div class="list-group-item text-muted small">
+                            Cargando sugerencias...
                         </div>
                     </div>
                 </div>
@@ -187,59 +172,880 @@
         </div>
     </div>
 
+    <!-- Modal para editar publicación -->
+    <div class="modal fade" id="editarPublicacionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Publicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editarPublicacionForm">
+                        <input type="hidden" id="editarPublicacionId">
+                        <div class="mb-3">
+                            <textarea class="form-control" id="editarPublicacionTexto" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Borrado -->
+    <div class="modal fade" id="confirmarBorrarModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0 text-white" style="background-color: #6f42c1;">
+                    <h5 class="modal-title">
+                        <i class="bi bi-trash3-fill me-2"></i>Eliminar Publicación
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="bi bi-exclamation-circle text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <p class="mb-0 fw-bold">¿Estás seguro de que quieres eliminar esta publicación?</p>
+                    <p class="text-muted small">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn text-white px-4" style="background-color: #6f42c1;"
+                        id="btnConfirmarBorrado">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para cerrar sesión -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="logoutModalLabel">
+                        <i class="bi bi-box-arrow-right text-danger me-2"></i>
+                        Cerrar Sesión
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-question-circle text-primary" style="font-size: 3rem;"></i>
+                    <p class="mt-3 mb-0">¿Estás seguro que deseas cerrar sesión?</p>
+                    <small class="text-muted">Tendrás que iniciar sesión nuevamente para acceder a tu cuenta</small>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-danger px-4" onclick="confirmarLogout()">
+                        <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script personalizado -->
     <script>
-        // Eliminar cualquier verificación de sesión
-        document.addEventListener('DOMContentLoaded', function() {
-            // Código para cargar publicaciones sin verificación de sesión
-            cargarPublicaciones();
+        let currentUserId = null;
+        let publicacionABorrarId = null;
+        let currentPage = 1;
+        const postsPerPage = 10;
+
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            modal.show();
+        }
+
+        // Función para confirmar el logout
+        function confirmarLogout() {
+            window.location.href = 'redsocial_logout.php';
+        }
+
+        // --- Lógica de Vista Previa ---
+        const imagenInput = document.getElementById('imagenInput');
+        const previewContainer = document.getElementById('previewContainer');
+        const previewContent = document.getElementById('previewContent');
+
+        imagenInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewContent.innerHTML = '';
+                    if (file.type.startsWith('image/')) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'img-fluid rounded';
+                        img.style.maxHeight = '300px';
+                        previewContent.appendChild(img);
+                    } else if (file.type.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        video.src = e.target.result;
+                        video.controls = true;
+                        video.className = 'rounded w-100';
+                        video.style.maxHeight = '300px';
+                        previewContent.appendChild(video);
+                    }
+                    previewContainer.classList.remove('d-none');
+                }
+                reader.readAsDataURL(file);
+            }
         });
 
-        function cargarPublicaciones() {
-            // Código para cargar publicaciones
-            const publicaciones = [
-                {
-                    id: 1,
-                    usuario: 'Usuario Ejemplo',
-                    avatar: 'https://via.placeholder.com/40',
-                    texto: '¡Bienvenido a nuestra red social! Empieza a seguir a personas para ver sus publicaciones aquí.',
-                    fecha: 'Hace unos momentos',
-                    meGusta: 0,
-                    comentarios: []
-                }
-            ];
+        function limpiarPreview() {
+            imagenInput.value = '';
+            previewContainer.classList.add('d-none');
+            previewContent.innerHTML = '';
+        }
 
-            const contenedor = document.getElementById('publicaciones');
-            if (contenedor) {
-                contenedor.innerHTML = '';
-                publicaciones.forEach(publicacion => {
-                    contenedor.innerHTML += `
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="d-flex mb-2">
-                                    <img src="${publicacion.avatar}" class="rounded-circle me-2" width="40" height="40" alt="${publicacion.usuario}">
-                                    <div>
-                                        <h6 class="mb-0">${publicacion.usuario}</h6>
-                                        <small class="text-muted">${publicacion.fecha}</small>
+        // Manejar envío de publicación
+        document.getElementById('publicacionForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const texto = document.getElementById('publicacionTexto').value;
+            const botonPublicar = this.querySelector('button[type="submit"]');
+
+            if (!texto.trim() && imagenInput.files.length === 0) {
+                alert('Escribe algo o sube una foto para publicar.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('texto', texto);
+            if (imagenInput.files.length > 0) {
+                formData.append('imagen', imagenInput.files[0]);
+            }
+
+            // Deshabilitar botón mientras se envía
+            botonPublicar.disabled = true;
+            botonPublicar.textContent = 'Publicando...';
+
+            fetch('acciones/crear_publicacion.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Limpiar formulario y preview
+                        document.getElementById('publicacionTexto').value = '';
+                        limpiarPreview();
+                        // Recargar publicaciones (reset)
+                        cargarPublicaciones(true);
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al publicar.');
+                })
+                .finally(() => {
+                    botonPublicar.disabled = false;
+                    botonPublicar.textContent = 'Publicar';
+                });
+        });
+
+        // Función para formatear fecha relativa
+        function formatearFechaRelativa(fecha) {
+            const ahora = new Date();
+            const fechaPub = new Date(fecha);
+            const diferencia = ahora - fechaPub;
+            const segundos = Math.floor(diferencia / 1000);
+            const minutos = Math.floor(segundos / 60);
+            const horas = Math.floor(minutos / 60);
+            const dias = Math.floor(horas / 24);
+            const semanas = Math.floor(dias / 7);
+            const meses = Math.floor(dias / 30);
+            const anios = Math.floor(dias / 365);
+
+            if (segundos < 60) {
+                return 'hace un momento';
+            } else if (minutos === 1) {
+                return 'hace 1 minuto';
+            } else if (minutos < 60) {
+                return `hace ${minutos} minutos`;
+            } else if (horas === 1) {
+                return 'hace 1 hora';
+            } else if (horas < 24) {
+                return `hace ${horas} horas`;
+            } else if (dias === 1) {
+                return 'hace 1 día';
+            } else if (dias < 7) {
+                return `hace ${dias} días`;
+            } else if (semanas === 1) {
+                return 'hace 1 semana';
+            } else if (semanas < 4) {
+                return `hace ${semanas} semanas`;
+            } else if (meses === 1) {
+                return 'hace 1 mes';
+            } else if (meses < 12) {
+                return `hace ${meses} meses`;
+            } else if (anios === 1) {
+                return 'hace 1 año';
+            } else {
+                return `hace ${anios} años`;
+            }
+        }
+
+        const DEFAULT_PROFILE_IMG = 'assets/blanco y negro.webp';
+
+        // Función para cargar publicaciones
+        function cargarPublicaciones(reset = false) {
+            if (reset) {
+                currentPage = 1;
+            }
+
+            const btnCargarMas = document.getElementById('cargarMas');
+            if (btnCargarMas) {
+                btnCargarMas.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Cargando...';
+                btnCargarMas.disabled = true;
+            }
+
+            fetch(`api_publicaciones.php?page=${currentPage}&limit=${postsPerPage}`)
+                .then(response => response.json())
+                .then(data => {
+                    const contenedor = document.getElementById('publicaciones');
+
+                    if (reset) {
+                        contenedor.innerHTML = ''; // Limpiar contenedor solo si es reset
+                    }
+
+                    if (data.status === 'success' && data.publicaciones.length > 0) {
+                        data.publicaciones.forEach(pub => {
+                            try {
+
+                                const fechaRelativa = formatearFechaRelativa(pub.fecha);
+                                let mediaHtml = '';
+
+                                if (pub.imagen) {
+                                    // Sanitizar string para evitar errores si no es string, aunque el API debería devolverlo
+                                    const imgStr = String(pub.imagen);
+                                    const extension = imgStr.split('.').pop().toLowerCase();
+                                    const videoExtensions = ['mp4', 'webm', 'ogg'];
+
+                                    if (videoExtensions.includes(extension)) {
+                                        mediaHtml = `
+                                        <div class="mt-3 ratio ratio-16x9">
+                                            <video controls class="rounded" style="max-height: 400px; width: 100%; object-fit: contain; background: #000;">
+                                                <source src="${imgStr}" type="video/${extension}">
+                                                Tu navegador no soporta el elemento de video.
+                                            </video>
+                                        </div>`;
+                                    } else {
+                                        mediaHtml = `
+                                        <div class="mt-3">
+                                            <img src="${imgStr}" class="img-fluid rounded" alt="Imagen de publicación" 
+                                                 style="cursor: pointer;" onclick="verImagen('${imgStr}')">
+                                        </div>`;
+                                    }
+                                }
+
+                                // Menú de opciones (solo si es el dueño)
+                                let menuOpciones = '';
+                                if (currentUserId && pub.usuario_id == currentUserId) {
+                                    // Escapar comillas simples en el contenido para evitar romper el JS
+                                    const contenidoEscaped = pub.contenido ? pub.contenido.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+                                    menuOpciones = `
+                                    <div class="dropdown">
+                                        <button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" onclick="abrirModalEdicion(${pub.id}, '${contenidoEscaped}')"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" onclick="confirmarBorrado(${pub.id})"><i class="bi bi-trash me-2"></i>Borrar</a></li>
+                                        </ul>
+                                    </div>
+                                `;
+                                } else {
+                                    menuOpciones = `
+                                    <button class="btn btn-link text-muted p-0">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                `;
+                                }
+
+                                const html = `
+                            <div class="card mb-4" id="pub-${pub.id}">
+                                <div class="card-header bg-white border-0 pb-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="${pub.foto_usuario}" class="rounded-circle me-2" width="40" height="40" alt="Usuario">
+                                        <div>
+                                            <div class="fw-bold mb-0">${pub.nombre}</div>
+                                            <div class="text-muted small">${fechaRelativa}</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            ${menuOpciones}
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="card-text">${publicacion.texto}</p>
-                                <div class="d-flex justify-content-between border-top pt-2">
-                                    <button class="btn btn-sm btn-outline-secondary me-2">
-                                        <i class="bi bi-heart"></i> Me gusta (${publicacion.meGusta})
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary">
-                                        <i class="bi bi-chat"></i> Comentar
-                                    </button>
+                                <div class="card-body">
+                                    <p class="card-text mb-0" id="contenido-${pub.id}">${pub.contenido}</p>
+                                    ${mediaHtml}
+                                </div>
+                                <div class="card-footer bg-white border-0 pt-0">
+                                    <!-- Botones de interacción ARRIBA -->
+                                    <div class="d-flex justify-content-around border-top border-bottom py-2 mt-3">
+                                        <button class="btn btn-sm ${pub.liked_by_user ? 'btn-danger' : 'btn-outline-secondary'} border-0 flex-fill" onclick="toggleLike(${pub.id}, this)">
+                                            <i class="bi ${pub.liked_by_user ? 'bi-heart-fill' : 'bi-heart'}"></i> <span class="like-count">${pub.likes_count}</span> Me gusta
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary border-0 flex-fill" onclick="toggleComentarios(${pub.id})">
+                                            <i class="bi bi-chat"></i> Comentar
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Sección de comentarios (SIEMPRE VISIBLE, debajo de los botones) -->
+                                    <div id="seccion-comentarios-${pub.id}" class="mt-3 pt-3">
+                                        <div id="lista-comentarios-${pub.id}" class="mb-3">
+                                            <!-- Los comentarios se cargarán aquí -->
+                                        </div>
+                                        <!-- Formulario de nuevo comentario -->
+                                        <div class="d-flex align-items-start gap-2">
+                                            <img src="${DEFAULT_PROFILE_IMG}" class="rounded-circle usuario-actual-foto" width="32" height="32" style="object-fit:cover">
+                                            <div class="flex-grow-1">
+                                                <div class="input-group">
+                                                    <textarea class="form-control form-control-sm rounded-pill" 
+                                                              id="input-comentario-${pub.id}" 
+                                                              rows="1" 
+                                                              placeholder="Escribe un comentario..." 
+                                                              style="resize:none; overflow:hidden;"
+                                                              oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+                                                    <button class="btn btn-primary btn-sm rounded-end-pill px-3" onclick="enviarComentario(${pub.id})">
+                                                        <i class="bi bi-send-fill"></i>
+                                                    </button>
+                                                </div>
+                                                <small id="replying-to-${pub.id}" class="text-muted d-none ms-2">
+                                                    Respondiendo a <span class="fw-bold target-name"></span> 
+                                                    <a href="#" onclick="cancelarRespuesta(${pub.id}, event)" class="text-danger text-decoration-none ms-1">&times;</a>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                                contenedor.innerHTML += html;
+                                // Cargar comentarios automáticamente
+                                cargarComentarios(pub.id);
+                            } catch (error) {
+                                console.error('Error renderizando publicación:', error);
+                            }
+                        });
+
+                        currentPage++; // Incrementar página para la próxima carga
+
+                        // Gestionar visibilidad del botón "Cargar más"
+                        if (data.publicaciones.length < postsPerPage) {
+                            if (btnCargarMas) btnCargarMas.classList.add('d-none');
+                        } else {
+                            if (btnCargarMas) btnCargarMas.classList.remove('d-none');
+                        }
+
+                    } else {
+                        if (reset) {
+                            contenedor.innerHTML = `
+                            <div class="text-center text-muted py-5">
+                                Aún no hay publicaciones. ¡Sé el primero en publicar!
+                            </div>
+                            `;
+                        }
+                        if (btnCargarMas) btnCargarMas.classList.add('d-none');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al cargar publicaciones:', error);
+                })
+                .finally(() => {
+                    if (btnCargarMas) {
+                        btnCargarMas.innerHTML = '<i class="bi bi-arrow-down-circle me-1"></i> Cargar más publicaciones';
+                        btnCargarMas.disabled = false;
+                    }
+                });
+        }
+
+        // Función para ver imagen en modal
+        function verImagen(src) {
+            document.getElementById('imagenAmpliada').src = src;
+            new bootstrap.Modal(document.getElementById('imagenModal')).show();
+        }
+
+        // --- Funciones de Edición y Borrado ---
+
+        function confirmarBorrado(id) {
+            publicacionABorrarId = id;
+            new bootstrap.Modal(document.getElementById('confirmarBorrarModal')).show();
+        }
+
+        // Event listener para el botón de confirmar borrado en la modal
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnConfirmar = document.getElementById('btnConfirmarBorrado');
+            if (btnConfirmar) {
+                btnConfirmar.addEventListener('click', function () {
+                    if (publicacionABorrarId) {
+                        fetch('acciones/borrar_publicacion.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ id: publicacionABorrarId })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    // Eliminar del DOM
+                                    const elemento = document.getElementById(`pub-${publicacionABorrarId}`);
+                                    if (elemento) elemento.remove();
+
+                                    // Cerrar modal
+                                    const modalEl = document.getElementById('confirmarBorrarModal');
+                                    const modal = bootstrap.Modal.getInstance(modalEl);
+                                    modal.hide();
+                                } else {
+                                    alert('Error: ' + data.message);
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
                 });
             }
+        });
+
+        // Función para dar/quitar like
+        function toggleLike(publicacionId, btnElement) {
+            btnElement.disabled = true;
+            fetch('acciones/toggle_like.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ publicacion_id: publicacionId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const icon = btnElement.querySelector('i');
+                        const countSpan = btnElement.querySelector('.like-count');
+
+                        if (data.liked) {
+                            btnElement.classList.remove('btn-outline-secondary');
+                            btnElement.classList.add('btn-danger');
+                            icon.classList.remove('bi-heart');
+                            icon.classList.add('bi-heart-fill');
+                        } else {
+                            btnElement.classList.remove('btn-danger');
+                            btnElement.classList.add('btn-outline-secondary');
+                            icon.classList.remove('bi-heart-fill');
+                            icon.classList.add('bi-heart');
+                        }
+
+                        countSpan.textContent = data.likes_count;
+                    }
+                })
+                .catch(error => console.error('Error like:', error))
+                .finally(() => {
+                    btnElement.disabled = false;
+                });
+        }
+
+        // --- LÓGICA DE COMENTARIOS ---
+        let replyTargets = {};
+
+        function toggleComentarios(pubId) {
+            const input = document.getElementById(`input-comentario-${pubId}`);
+            if (input) input.focus();
+        }
+
+        function cargarComentarios(pubId) {
+            const lista = document.getElementById(`lista-comentarios-${pubId}`);
+            if (!lista) return;
+
+            fetch(`api_comentarios.php?publicacion_id=${pubId}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        renderizarComentarios(pubId, data.comentarios);
+                    } else {
+                        lista.innerHTML = '<div class="text-danger small">Error cargando comentarios.</div>';
+                    }
+                })
+                .catch(e => {
+                    console.error(e);
+                    lista.innerHTML = '<div class="text-danger small">Error de conexión.</div>';
+                });
+        }
+
+        function renderizarComentarios(pubId, comentarios) {
+            const lista = document.getElementById(`lista-comentarios-${pubId}`);
+            lista.innerHTML = '';
+
+            if (comentarios.length === 0) {
+                return;
+            }
+
+            const map = {};
+            const roots = [];
+
+            comentarios.forEach(c => {
+                c.children = [];
+                map[c.id] = c;
+            });
+
+            comentarios.forEach(c => {
+                if (c.parent_id && map[c.parent_id]) {
+                    map[c.parent_id].children.push(c);
+                } else {
+                    roots.push(c);
+                }
+            });
+
+            roots.forEach(root => {
+                lista.appendChild(crearNodoComentario(root));
+            });
+        }
+
+        function crearNodoComentario(c) {
+            const div = document.createElement('div');
+            div.className = 'd-flex gap-2 mb-3';
+            div.id = `comentario-${c.id}`;
+
+            const foto = c.fotoperfil && c.fotoperfil.trim() ? c.fotoperfil : DEFAULT_PROFILE_IMG;
+            const fecha = formatearFechaRelativa(c.fecha_comentario);
+
+            div.innerHTML = `
+                <img src="${foto}" class="rounded-circle mt-1" width="32" height="32" style="object-fit:cover">
+                <div class="flex-grow-1">
+                    <div class="bg-light rounded-3 px-3 py-2 d-inline-block">
+                        <div class="fw-bold small mb-0">${c.username}</div>
+                        <div class="small text-break">${c.contenido}</div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 ms-2 mt-1 small">
+                        <span class="text-muted">${fecha}</span>
+                        <a href="#" onclick="likeComentario(${c.id}, this, event)" class="text-decoration-none fw-bold ${c.user_liked ? 'text-danger' : 'text-secondary'}">
+                            ${c.user_liked ? 'Me gusta' : 'Me gusta'}
+                            ${c.likes_count > 0 ? `<span class="badge bg-light text-secondary border rounded-pill ms-1">❤️ ${c.likes_count}</span>` : ''}
+                        </a>
+                        <a href="#" onclick="responderComentario(${c.publicacion_id}, ${c.id}, '${c.username}', event)" class="text-decoration-none text-secondary fw-bold">Responder</a>
+                    </div>
+                    <div class="respuestas-container"></div>
+                </div>
+            `;
+
+            if (c.children && c.children.length > 0) {
+                const container = div.querySelector('.respuestas-container');
+                c.children.forEach(child => {
+                    container.appendChild(crearNodoComentario(child));
+                });
+            }
+            return div;
+        }
+
+        function responderComentario(pubId, commentId, username, e) {
+            e.preventDefault();
+            const input = document.getElementById(`input-comentario-${pubId}`);
+            replyTargets[pubId] = commentId;
+            const replyIndicator = document.getElementById(`replying-to-${pubId}`);
+            replyIndicator.querySelector('.target-name').textContent = username;
+            replyIndicator.classList.remove('d-none');
+            input.value = `@${username} `;
+            input.focus();
+        }
+
+        function cancelarRespuesta(pubId, e) {
+            if (e) e.preventDefault();
+            replyTargets[pubId] = null;
+            document.getElementById(`replying-to-${pubId}`).classList.add('d-none');
+            const input = document.getElementById(`input-comentario-${pubId}`);
+            input.placeholder = "Escribe un comentario...";
+            input.value = '';
+        }
+
+        function enviarComentario(pubId) {
+            const input = document.getElementById(`input-comentario-${pubId}`);
+            const contenido = input.value.trim();
+            if (!contenido) return;
+            const parentId = replyTargets[pubId] || null;
+
+            fetch('acciones/crear_comentario.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ publicacion_id: pubId, contenido: contenido, parent_id: parentId })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        input.value = '';
+                        input.style.height = '';
+                        cancelarRespuesta(pubId);
+                        cargarComentarios(pubId);
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(e => console.error(e));
+        }
+
+        function likeComentario(commentId, linkEl, e) {
+            e.preventDefault();
+            fetch('acciones/like_comentario.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ comentario_id: commentId })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        if (data.liked) {
+                            linkEl.classList.remove('text-secondary');
+                            linkEl.classList.add('text-danger');
+                        } else {
+                            linkEl.classList.remove('text-danger');
+                            linkEl.classList.add('text-secondary');
+                        }
+                        if (data.likes_count > 0) {
+                            linkEl.innerHTML = `Me gusta <span class="badge bg-light text-secondary border rounded-pill ms-1">❤️ ${data.likes_count}</span>`;
+                        } else {
+                            linkEl.innerHTML = `Me gusta`;
+                        }
+                    }
+                });
+        }
+
+        function abrirModalEdicion(id, contenidoActual) {
+            document.getElementById('editarPublicacionId').value = id;
+            document.getElementById('editarPublicacionTexto').value = contenidoActual;
+            new bootstrap.Modal(document.getElementById('editarPublicacionModal')).show();
+        }
+
+        function guardarEdicion() {
+            const id = document.getElementById('editarPublicacionId').value;
+            const nuevoContenido = document.getElementById('editarPublicacionTexto').value;
+            const modalEl = document.getElementById('editarPublicacionModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+
+            fetch('acciones/editar_publicacion.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id, contenido: nuevoContenido })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Actualizar DOM
+                        const contenidoEl = document.getElementById(`contenido-${id}`);
+                        if (contenidoEl) contenidoEl.textContent = nuevoContenido;
+                        modal.hide();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Cargar datos iniciales
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cargar datos del usuario autenticado
+            fetch('api_usuario_actual.php')
+                .then(response => {
+                    if (response.status === 401) {
+                        throw new Error('No autenticado');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success' && data.user) {
+                        currentUserId = data.user.id; // Guardar ID del usuario actual
+
+                        const nombreEl = document.getElementById('usuarioNombre');
+                        const correoEl = document.getElementById('usuarioCorreo');
+                        const fotoEl = document.getElementById('usuarioFoto');
+                        const publicacionFotoEl = document.getElementById('publicacionFoto');
+
+                        // El API devuelve 'name' (que es el username) y 'email'
+                        const userName = data.user.name || 'Usuario';
+                        const userHandle = data.user.name || 'usuario';
+                        // Usamos un placeholder si la foto es nula o vacía
+                        const userPhoto = data.user.foto_perfil && data.user.foto_perfil.trim() !== ''
+                            ? data.user.foto_perfil
+                            : 'assets/blanco y negro.webp';
+
+                        if (nombreEl) {
+                            nombreEl.textContent = userName;
+                        }
+                        if (correoEl) {
+                            correoEl.textContent = '@' + userHandle;
+                        }
+                        if (fotoEl) {
+                            fotoEl.src = userPhoto;
+                        }
+                        if (publicacionFotoEl) {
+                            publicacionFotoEl.src = userPhoto;
+                        }
+
+                        // Actualizar estadísticas si existen
+                        if (data.user.stats) {
+                            const amigosEl = document.getElementById('usuarioAmigos');
+                            const publicacionesEl = document.getElementById('usuarioPublicaciones');
+
+                            if (amigosEl) amigosEl.textContent = data.user.stats.amigos;
+                            if (publicacionesEl) publicacionesEl.textContent = data.user.stats.publicaciones;
+
+                            // Actualizar badge de notificaciones de amistad
+                            if (data.user.stats.solicitudes > 0) {
+                                const navAmigos = document.getElementById('navAmigos');
+                                if (navAmigos) {
+                                    navAmigos.innerHTML += ` <span class="badge bg-danger rounded-pill ms-1">${data.user.stats.solicitudes}</span>`;
+                                }
+                            }
+                        }
+
+                        // Recargar publicaciones para actualizar los menús con el ID correcto
+                        // Cargar con reset=true
+                        cargarPublicaciones(true);
+
+                    } else {
+                        // Si no hay éxito en la respuesta, redirigir
+                        window.location.href = 'redsocial_login.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error de sesión:', error);
+                    // Si hay error (no autenticado), redirigir al login
+                    window.location.href = 'redsocial_login.html';
+                });
+
+            // Listener cargar más
+            const btnCargarMas = document.getElementById('cargarMas');
+            if (btnCargarMas) {
+                btnCargarMas.addEventListener('click', () => cargarPublicaciones(false));
+            }
+
+            // Cargar sugerencias
+            cargarSugerencias();
+
+            // Cargar cumpleaños
+            cargarCumpleanos();
+        });
+
+        // Función para cargar cumpleaños
+        function cargarCumpleanos() {
+            fetch('api_cumpleanos.php')
+                .then(response => response.json())
+                .then(data => {
+                    const contenedor = document.getElementById('cumpleanosContainer');
+                    if (data.status === 'success' && data.cumpleanos.length > 0) {
+                        contenedor.innerHTML = '';
+                        data.cumpleanos.forEach(user => {
+                            const foto = user.foto_perfil && user.foto_perfil.trim() !== ''
+                                ? user.foto_perfil
+                                : 'assets/blanco y negro.webp';
+
+                            contenedor.innerHTML += `
+                                <div class="list-group-item border-0 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="${foto}" class="rounded-circle me-3" width="40" height="40" style="object-fit: cover;">
+                                        <div class="flex-grow-1">
+                                            <div class="fw-bold small">${user.display_name}</div>
+                                            <div class="text-muted small">
+                                                <i class="bi bi-gift-fill text-danger me-1"></i> ${user.texto_fecha}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        contenedor.innerHTML = '<div class="list-group-item text-muted small">No hay cumpleaños próximos.</div>';
+                    }
+                })
+                .catch(error => console.error('Error cargando cumpleaños:', error));
+        }
+
+        // Función para cargar sugerencias
+        function cargarSugerencias() {
+            fetch('api_sugerencias.php')
+                .then(response => response.json())
+                .then(data => {
+                    const contenedor = document.getElementById('sugerenciasContainer');
+                    if (data.status === 'success' && data.sugerencias.length > 0) {
+                        contenedor.innerHTML = '';
+                        data.sugerencias.forEach(usuario => {
+                            const fotoPerfil = usuario.foto_perfil && usuario.foto_perfil.trim() !== ''
+                                ? usuario.foto_perfil
+                                : 'assets/blanco y negro.webp';
+
+                            contenedor.innerHTML += `
+                                <div class="list-group-item border-0 py-2">
+                                    <div class="d-flex align-items-center">
+                                        <img src="${fotoPerfil}" class="rounded-circle me-2" width="40" height="40" style="object-fit: cover;">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <div class="fw-bold small text-truncate">${usuario.display_name || usuario.username}</div>
+                                            <div class="text-muted small text-truncate">@${usuario.username}</div>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-primary ms-2 rounded-circle" 
+                                                title="Añadir amigo" 
+                                                onclick="enviarSolicitud(${usuario.id}, this)">
+                                            <i class="bi bi-person-plus-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        contenedor.innerHTML = '<div class="list-group-item text-muted small border-0">No hay sugerencias disponibles.</div>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error cargando sugerencias:', error);
+                    const contenedor = document.getElementById('sugerenciasContainer');
+                    if (contenedor) contenedor.innerHTML = '<div class="list-group-item text-muted small border-0">Error al cargar.</div>';
+                });
+        }
+
+        // Función para enviar solicitud de amistad
+        function enviarSolicitud(id, btn) {
+            // Deshabilitar botón
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+            fetch('acciones/gestionar_amistad.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ accion: 'enviar_solicitud', receptor_id: id })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        btn.className = 'btn btn-sm btn-success ms-2 rounded-circle';
+                        btn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                        btn.title = "Solicitud enviada";
+                        btn.onclick = null; // Desactivar click
+                    } else {
+                        alert('Error: ' + data.message);
+                        btn.innerHTML = originalContent;
+                        btn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                });
         }
     </script>
 </body>
+
 </html>

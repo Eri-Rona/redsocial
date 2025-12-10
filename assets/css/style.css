@@ -116,29 +116,123 @@ body {
     cursor: pointer;
 }
 
-/* Comentarios */
+/* Comentarios - Estilo Facebook */
 .comentarios {
     background-color: #f0f2f5;
     border-radius: 18px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.comentario-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.comentario-contenido {
+    background-color: #e4e6eb;
+    border-radius: 18px;
     padding: 8px 12px;
+    flex: 1;
+}
+
+.comentario-autor {
+    font-weight: 600;
+    font-size: 13px;
+    color: #050505;
+    margin-bottom: 2px;
+}
+
+.comentario-texto {
+    font-size: 15px;
+    color: #050505;
+    line-height: 1.3333;
+}
+
+.comentario-acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+    margin-left: 48px;
+    font-size: 12px;
+}
+
+.comentario-acciones a {
+    color: #65676b;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.comentario-acciones a:hover {
+    text-decoration: underline;
+}
+
+.comentario-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-top: 8px;
 }
 
-/* Botones de interacción */
+.comentario-input {
+    flex: 1;
+    border: none;
+    background-color: #f0f2f5;
+    border-radius: 18px;
+    padding: 8px 12px;
+    font-size: 15px;
+    outline: none;
+}
+
+.comentario-input:focus {
+    background-color: #e4e6eb;
+}
+
+.comentario-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Botones de interacción - Estilo Facebook */
+.interacciones {
+    border-top: 1px solid #e4e6eb;
+    padding-top: 4px;
+    margin-top: 8px;
+}
+
 .interacciones button {
     background: none;
     border: none;
-    color: #6b7280;
-    font-weight: 500;
-    padding: 8px 10px;
-    border-radius: 999px;
-    transition: background-color 0.15s ease-out, color 0.15s ease-out, transform 0.12s ease-out;
+    color: #65676b;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease-out;
+    font-size: 15px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .interacciones button:hover {
-    background-color: #ede9fe;
-    color: #7c3aed;
-    transform: translateY(-1px);
+    background-color: #f0f2f5;
+}
+
+.interacciones button i {
+    font-size: 18px;
+}
+
+.interacciones button.active {
+    color: #1877f2;
+}
+
+.interacciones button.liked {
+    color: #e41e3f;
 }
 
 /* Estilos para el perfil */
@@ -213,7 +307,7 @@ body {
     .profile-cover {
         height: 200px;
     }
-    
+
     .profile-picture {
         width: 100px;
         height: 100px;
@@ -274,7 +368,7 @@ body {
     padding: 1.5rem;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
 }
 
 /* Estilos para las pestañas */
@@ -344,8 +438,15 @@ body {
 
 /* Animaciones */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .fade-in {
@@ -364,24 +465,27 @@ body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Estilos para móviles */
 @media (max-width: 576px) {
-    .login-container, 
+
+    .login-container,
     .register-container,
     .verification-container {
         margin: 20px auto;
         padding: 1rem;
     }
-    
+
     .profile-edit-picture {
         width: 120px;
         height: 120px;
         bottom: -60px;
     }
-    
+
     .btn-edit-picture {
         left: 120px;
     }

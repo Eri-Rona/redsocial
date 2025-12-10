@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const isAuthenticated = document.cookie.includes('usuario_id=');
     
     // Si el usuario no está autenticado, redirigir al login
-    if (!isAuthenticated && !window.location.pathname.endsWith('login.html') && 
-        !window.location.pathname.endsWith('registro.html')) {
+    if (!isAuthenticated && !window.location.pathname.endsWith('login.html')) {
         window.location.href = 'login.html';
         return;
     }
